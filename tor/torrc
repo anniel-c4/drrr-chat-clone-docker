@@ -1,0 +1,6 @@
+DataDirectory /var/lib/tor
+Log notice stdout
+
+# Onion Service の設定 (Nginxコンテナ "web" の80番へ転送)
+HiddenServiceDir /var/lib/tor/mywebsite/
+HiddenServicePort 80 web:80
