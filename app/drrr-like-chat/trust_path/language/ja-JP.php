@@ -48,5 +48,5 @@ return array(
     "Language" => "使用言語",
     "The language is not in the option." => "選択肢にない言語が選択されました。",
     "Durarara like chat room" => "デュラララ!!チャットルーム",
-    "Durarara fan community" => "ファンコミュニティ",
+    "Durarara fan community" => "",
 );

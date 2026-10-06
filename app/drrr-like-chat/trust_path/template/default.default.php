@@ -1,4 +1,5 @@
 <div id="login" class="header">
+    
 <?php if ( $dura['error'] ) : ?>
 <div class="error">
 <?php echo $dura['error'] ?>
@@ -18,8 +19,10 @@
 <?php foreach ( $dura['icons'] as $icon => $file ) : ?>
 <li>
 <label>
+
 <img src="<?php echo DURA_URL.'/css/'.$file ?>" />
-<input type="radio" name="icon" value="<?php echo $icon ?>" />
+<input type="hidden" name="icon"  value="<?php echo $icon ?>" style="display: none"/>
+tetetetetetetetete
 </label>
 </li>
 <?php endforeach ?>
@@ -44,5 +47,5 @@
 <div class="copyright">
 <a href="<?php e(Dura::url('admin')) ?>"><?php e("Admin") ?></a> |
 Durarara-like-chat Copyright (c) 2010 <a href="http://suin.asia/">Suin</a> | <a href="https://github.com/drrr-like-chat/drrr-like-chat">get this chat?</a></div>
-
+tetetetete
 </div>
