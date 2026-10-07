@@ -2,6 +2,7 @@
 
 class Dura_Class_Xml extends SimpleXMLElement
 {
+    #[\ReturnTypeWillChange]
     public function asXML($filename = null)
     {
         $string = parent::asXML();

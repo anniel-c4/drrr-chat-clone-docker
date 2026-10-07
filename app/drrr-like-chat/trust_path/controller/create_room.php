@@ -43,15 +43,22 @@ class Dura_Controller_CreateRoom extends Dura_Abstract_Controller
         }
     }
 
+    // protected function _getInput()
+    // {
+    //     $this->input['name'] = Dura::post('name');
+    //     $this->input['limit'] = Dura::post('limit');
+    //     $this->input['language'] = Dura::post('language');
+    //     $this->input['name'] = trim($this->input['name']);
+    //     $this->input['language'] = trim($this->input['language']);
+    // }
     protected function _getInput()
     {
         $this->input['name'] = Dura::post('name');
         $this->input['limit'] = Dura::post('limit');
         $this->input['language'] = Dura::post('language');
-        $this->input['name'] = trim($this->input['name']);
-        $this->input['language'] = trim($this->input['language']);
+        $this->input['name'] = trim((string) $this->input['name']);
+        $this->input['language'] = trim((string) $this->input['language']);
     }
-
     protected function _default()
     {
         $this->output['user_min'] = DURA_USER_MIN;

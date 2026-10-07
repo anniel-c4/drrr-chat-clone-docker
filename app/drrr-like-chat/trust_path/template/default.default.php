@@ -22,7 +22,7 @@
 
 <img src="<?php echo DURA_URL.'/css/'.$file ?>" />
 <input type="hidden" name="icon"  value="<?php echo $icon ?>" style="display: none"/>
-tetetetetetetetete
+
 </label>
 </li>
 <?php endforeach ?>

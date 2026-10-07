@@ -9,7 +9,12 @@ define('DURA_ADMIN_PASS', 'admin');
 /**
  * URL & Path
  */
-define('DURA_URL', 'http://localhost:8000'); // DO NOT ADD SLASH TO END.
+// checkpoint
+// define('DURA_URL', 'http://localhost:8000'); // DO NOT ADD SLASH TO END.
+$protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https://" : "http://";
+$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
+define('DURA_URL', $protocol . $host);
+
 define('DURA_PATH', dirname(__FILE__));
 
 /**
@@ -23,12 +28,12 @@ define('DURA_TEMPLATE_PATH', DURA_TRUST_PATH.'/template');
 // ******************* checkpoint
 // DURA_TRUST_PATH の指定
 // 通常は相対パスで自動判定されますが、環境に応じて絶対パスを指定することも可能です。
-define('DURA_TRUST_PATH', __DIR__ . '/trust_path');
+// define('DURA_TRUST_PATH', __DIR__ . '/trust_path');
 
 // URLなどのパス設定（必要に応じて調整）
 // define('DURA_URL', 'http://localhost:8080/drrr-like-chat');
 // define('DURA_URL', 'http://localhost:8000/drrr-like-chat');
-define('DURA_URL', 'http://localhost:8000/');
+// define('DURA_URL', 'http://localhost:8000/');
 // または
 // define('SITE_URL', 'http://localhost:8000/');
 

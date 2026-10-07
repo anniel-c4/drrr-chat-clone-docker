@@ -2,12 +2,18 @@
 
 class Dura_Controller_Room extends Dura_Abstract_Controller
 {
+    // protected $id = null;
+    // protected $chat = null;
+    // protected $isAjax = null;
+    // protected $roomHandler = null;
+    // protected $roomModels = null;
+
     protected $id = null;
     protected $chat = null;
     protected $isAjax = null;
     protected $roomHandler = null;
+    protected $roomModel = null;  // ★ この行を追加（単数形）
     protected $roomModels = null;
-
     public function __construct()
     {
         parent::__construct();

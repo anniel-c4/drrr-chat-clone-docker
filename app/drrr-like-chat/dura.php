@@ -94,24 +94,38 @@ class Dura
         require $path;
     }
 
+    // public static function get($name, $default = null)
+    // {
+    //     $request = (isset($_GET[$name])) ? $_GET[$name] : $default;
+    //     if (get_magic_quotes_gpc() and !is_array($request)) {
+    //         $request = stripslashes($request);
+    //     }
+    //     return $request;
+    // }
     public static function get($name, $default = null)
     {
         $request = (isset($_GET[$name])) ? $_GET[$name] : $default;
-        if (get_magic_quotes_gpc() and !is_array($request)) {
+        if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc() and !is_array($request)) {
             $request = stripslashes($request);
         }
         return $request;
     }
-
+    // public static function post($name, $default = null)
+    // {
+    //     $request = (isset($_POST[$name])) ? $_POST[$name] : $default;
+    //     if (get_magic_quotes_gpc() and !is_array($request)) {
+    //         $request = stripslashes($request);
+    //     }
+    //     return $request;
+    // }
     public static function post($name, $default = null)
     {
         $request = (isset($_POST[$name])) ? $_POST[$name] : $default;
-        if (get_magic_quotes_gpc() and !is_array($request)) {
+        if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc() and !is_array($request)) {
             $request = stripslashes($request);
         }
         return $request;
     }
-
     public static function putintoClassParts($str)
     {
         $str = preg_replace('/[^a-z0-9_]/', '', $str);
@@ -132,11 +146,14 @@ class Dura
         return $str;
     }
 
+    // public static function escapeHtml($string)
+    // {
+    //     return htmlspecialchars($string, ENT_QUOTES);
+    // }
     public static function escapeHtml($string)
     {
-        return htmlspecialchars($string, ENT_QUOTES);
+        return htmlspecialchars((string) $string, ENT_QUOTES);
     }
-
     public static function redirect($controller = null, $action = null, $extra = array())
     {
         $url = self::url($controller, $action, $extra);
