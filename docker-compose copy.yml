@@ -13,7 +13,7 @@ services:
       - "8080:80"
     volumes:
       # 【変更】./app/drrr-like-chat を Nginx の root (/var/www/html/drrr-like-chat) に割り当て
-      - ./app/drrr-like-chat:/var/www/html/drrr-like-chat
+      - ./app/drrr-like-chat:/var/www/html/drrr-like-chat:ro
       # Nginx 設定ファイルをコンテナに割り当て
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     networks:
@@ -30,7 +30,7 @@ services:
     restart: always
     volumes:
       # 【変更】PHP コンテナ側にも同じソースコードをマウント
-      - ./app/drrr-like-chat:/var/www/html/drrr-like-chat/
+      - ./app/drrr-like-chat:/var/www/html/drrr-like-chat
     networks:
       - tor-net
 
@@ -38,31 +38,15 @@ services:
   # 3. Tor 匿名化サービス
   # --------------------------------------------------
   tor:
-    build: ./tor
-    container_name: onion-tor
-    restart: always
-    volumes:
-      - ./tor_keys:/var/lib/tor/mywebsite
-      # 【追加】生成された Onion アドレス出力先としてプロジェクト直下をコンテナ内 (/out) にマウント
-      - ./:/out
-    networks:
-      - tor-net
-    depends_on:
-      - web
-    # 【追加】起動時に hostname が生成されたら権限を緩めて onion_address.txt へ自動コピーする処理を設定
-    entrypoint: >
-      sh -c "
-        (
-          until [ -f /var/lib/tor/mywebsite/hostname ]; do sleep 1; done;
-          cp /var/lib/tor/mywebsite/hostname /out/onion_address.txt;
-          chmod 644 /out/onion_address.txt;
-          echo '==================================================';
-          echo '✅ Onion Address Generated:';
-          cat /out/onion_address.txt;
-          echo '==================================================';
-        ) &
-        exec tor -f /etc/tor/torrc
-      "
+      build: ./tor
+      container_name: onion-tor
+      restart: always
+      volumes:
+        - ./tor_keys:/var/lib/tor/mywebsite
+      networks:
+        - tor-net
+      depends_on:
+        - web
 
 networks:
   tor-net:
