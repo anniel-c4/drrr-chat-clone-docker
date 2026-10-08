@@ -1,1 +1,4 @@
 /trust_path/xml/*
+# Tor の鍵および生成アドレスを Git 管理から除外
+tor_keys/
+onion_address.txt

@@ -39,30 +39,35 @@ services:
     restart: always
     user: "root"
     volumes:
-      # APP_ENV に応じて ./tor_keys/group_a または ./tor_keys/group_b をマウント
       - ./tor_keys/${APP_ENV:-group_a}:/var/lib/tor/mywebsite
       - ./:/out
     networks:
       - tor-net
     depends_on:
       - web
-    entrypoint: >
-      sh -c "
-        # 1. 権限・所有者の修正
+    entrypoint:
+      - sh
+      - -c
+      - |
+        # 1. 親ディレクトリ(/var/lib/tor)と鍵フォルダの所有権・権限を完全root化
         mkdir -p /var/lib/tor/mywebsite
-        chown -R root:root /var/lib/tor/mywebsite
+        chown -R root:root /var/lib/tor
+        chmod 700 /var/lib/tor
         chmod 700 /var/lib/tor/mywebsite
 
-        # 2. hostname ファイルが生成されたら onion_address.txt へコピー
+        # 2. hostname が生成されたら onion_address.txt へ書き出し
         (
-          while [ ! -f /var/lib/tor/mywebsite/hostname ]; do sleep 1; done;
-          cp /var/lib/tor/mywebsite/hostname /out/onion_address.txt;
-          chmod 644 /out/onion_address.txt;
+          until [ -f /var/lib/tor/mywebsite/hostname ]; do sleep 1; done;
+          cp /var/lib/tor/mywebsite/hostname /out/onion_address.txt
+          chmod 644 /out/onion_address.txt
+          echo "=================================================="
+          echo "✅ Onion Address Updated:"
+          cat /out/onion_address.txt
+          echo "=================================================="
         ) &
 
         # 3. Tor 起動
         exec tor -f /etc/tor/torrc
-      "
 
 networks:
   tor-net:
