@@ -18,3 +18,8 @@ RUN { \
 } > /usr/local/etc/php/conf.d/opcache-recommended.ini
 # 権限調整用の設定
 WORKDIR /var/www/html
+
+# ディレクトリを作成し、所有権を設定
+RUN mkdir -p /var/www/html/drrr-like-chat/trust_path/xml \
+    && chown -R www-data:www-data /var/www/html/drrr-like-chat/trust_path/xml \
+    && chmod -R 775 /var/www/html/drrr-like-chat/trust_path/xml

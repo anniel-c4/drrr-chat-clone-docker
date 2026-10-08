@@ -13,7 +13,7 @@ services:
       - "8080:80"
     volumes:
       # 【変更】./app/drrr-like-chat を Nginx の root (/var/www/html/drrr-like-chat) に割り当て
-      - ./app/drrr-like-chat:/var/www/html/drrr-like-chat:ro
+      - ./app/drrr-like-chat:/var/www/html/drrr-like-chat
       # Nginx 設定ファイルをコンテナに割り当て
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     networks:
@@ -30,7 +30,7 @@ services:
     restart: always
     volumes:
       # 【変更】PHP コンテナ側にも同じソースコードをマウント
-      - ./app/drrr-like-chat:/var/www/html/drrr-like-chat
+      - ./app/drrr-like-chat:/var/www/html/drrr-like-chat/
     networks:
       - tor-net
 
